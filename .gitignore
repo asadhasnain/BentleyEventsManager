@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/packages
+/.vs/*
+/BentleyEventsManager/bin/*
+/BentleyEventsManager/obj/*
+
+
+/BentleyModels/bin/*
+/BentleyModels/obj/*

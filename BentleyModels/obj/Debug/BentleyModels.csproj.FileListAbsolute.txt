@@ -1,9 +1,0 @@
-D:\SIG Bentley Technology Champions\ASP.NET MVC\BentleyEventsManager\BentleyModels\bin\Debug\BentleyModels.dll.config
-D:\SIG Bentley Technology Champions\ASP.NET MVC\BentleyEventsManager\BentleyModels\bin\Debug\BentleyModels.dll
-D:\SIG Bentley Technology Champions\ASP.NET MVC\BentleyEventsManager\BentleyModels\bin\Debug\BentleyModels.pdb
-D:\SIG Bentley Technology Champions\ASP.NET MVC\BentleyEventsManager\BentleyModels\bin\Debug\EntityFramework.dll
-D:\SIG Bentley Technology Champions\ASP.NET MVC\BentleyEventsManager\BentleyModels\bin\Debug\EntityFramework.SqlServer.dll
-D:\SIG Bentley Technology Champions\ASP.NET MVC\BentleyEventsManager\BentleyModels\bin\Debug\EntityFramework.xml
-D:\SIG Bentley Technology Champions\ASP.NET MVC\BentleyEventsManager\BentleyModels\bin\Debug\EntityFramework.SqlServer.xml
-D:\SIG Bentley Technology Champions\ASP.NET MVC\BentleyEventsManager\BentleyModels\obj\Debug\BentleyModels.dll
-D:\SIG Bentley Technology Champions\ASP.NET MVC\BentleyEventsManager\BentleyModels\obj\Debug\BentleyModels.pdb

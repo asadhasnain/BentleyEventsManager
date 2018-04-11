@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BentleyEventsManager.Controllers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -16,6 +17,9 @@ namespace BentleyEventsManager
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            //Register Scheduled Jobs
+            new NotificationsController ().ScheduleJob (ConfigLookup.GetJobName, ConfigLookup.GetJobDuration);
         }
     }
 }
