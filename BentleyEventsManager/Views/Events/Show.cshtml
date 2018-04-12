@@ -1,0 +1,43 @@
+﻿@model IEnumerable<BentleyModels.Event>
+
+@{
+	Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+	<meta name="viewport" content="width=device-width" />
+	<title>Events</title>
+	@Styles.Render("~/Content/css")
+	@Scripts.Render("~/bundles/modernizr")
+	<link href="~/Content/Site.css" rel="stylesheet" />
+
+</head>
+<body class="parallaxbody">
+	<div class="welcomeHeader">
+		<h1>Welcome to Bentley Events Manager</h1>
+		@*<img src="https://www.bentley.com/en/about-us/news/2017/january/18/-/media/1d26f96881f340769b4872837b2dd3a5.ashx?h=35&w=151" alt="" style="height:75px;"/>*@
+	</div>
+	<div class="parallax">
+	</div>
+	<div class="container">
+		<div class="row">
+			@foreach (var item in Model)
+				{
+				<div class="col-lg-4 col-md-4 col-sm-6 eventColumn text-center">
+					@Html.Partial("EventDetail", item)
+				</div>
+				@*<div>
+						<label></label>
+					</div>*@
+				}
+		</div>
+
+	</div>
+
+	@Scripts.Render("~/bundles/jquery")
+	@Scripts.Render("~/bundles/bootstrap")
+</body>
+</html>

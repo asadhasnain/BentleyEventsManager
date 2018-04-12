@@ -1,0 +1,42 @@
+﻿
+@model BentleyModels.Event
+
+
+<div style="background-color:wheat">
+	<h4>
+		@Html.DisplayFor(model => model.Title)
+	</h4>
+</div>
+<hr />
+<dl>
+
+	<dt>
+		@Html.DisplayNameFor(model => model.Description)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.Description)
+	</dd>
+
+	<dt>
+		@Html.DisplayNameFor(model => model.Schedule)
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.Schedule)
+	</dd>
+
+	<dt>
+		@Html.Label("Committee")
+	</dt>
+
+	<dd>
+		@Html.DisplayFor(model => model.Committee.Title)
+	</dd>
+
+	<dd style="position:center">
+		@Html.ActionLink("Details", "Details", "Events",new { id =Model.Id})
+	</dd>
+
+</dl>
+

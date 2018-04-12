@@ -22,3 +22,51 @@ select,
 textarea {
     max-width: 280px;
 }
+.parallax { 
+    background-image: url('Images/UpComingEvents.jpg'); 
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.parallaxbody { 
+    background-image: url('Images/Background.jpg');
+    min-height: 500px; 
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.welcomeHeader {
+    color: black;
+    position: relative;
+    top: 200px;
+    animation-name: moveDown;
+    animation-duration: 5s;
+    animation-delay: 1s;
+    animation-fill-mode: forwards
+}
+
+@keyframes moveDown {
+    from {
+        top: 200px;
+        color: black;
+    }
+
+    to {
+        top: 0px;
+        color: white;
+    }
+}
+
+.eventColumn {
+    background-color: rgba(245, 245, 245, 0.8);
+}
+
+    .eventColumn:hover {
+        background-color: gainsboro;
+        opacity: 1
+    }
