@@ -12,6 +12,11 @@
         <AssociationConnector Association="beEventsModel.FK_Evemt_ToCommittee" ManuallyRouted="false" />
         <AssociationConnector Association="beEventsModel.FK_Member_ToCommittee" ManuallyRouted="false" />
         <AssociationConnector Association="beEventsModel.FK_Member_ToEmployee" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="beEventsModel.Budget" Width="1.5" PointX="3" PointY="7.75" />
+        <EntityTypeShape EntityType="beEventsModel.Expense" Width="1.5" PointX="5.25" PointY="2.125" />
+        <AssociationConnector Association="beEventsModel.FK_Budget_ToCommittee" />
+        <AssociationConnector Association="beEventsModel.FK_Expense_ToEvent" />
+        <AssociationConnector Association="beEventsModel.FK_Expense_ToMember" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

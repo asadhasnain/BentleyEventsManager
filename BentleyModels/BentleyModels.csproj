@@ -66,6 +66,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>BentleyModels.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Budget.cs">
+      <DependentUpon>BentleyModels.tt</DependentUpon>
+    </Compile>
     <Compile Include="Committee.cs">
       <DependentUpon>BentleyModels.tt</DependentUpon>
     </Compile>
@@ -73,6 +76,9 @@
       <DependentUpon>BentleyModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Event.cs">
+      <DependentUpon>BentleyModels.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Expense.cs">
       <DependentUpon>BentleyModels.tt</DependentUpon>
     </Compile>
     <Compile Include="Member.cs">

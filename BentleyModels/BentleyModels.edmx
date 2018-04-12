@@ -5,6 +5,16 @@
     <!-- SSDL content -->
     <edmx:StorageModels>
     <Schema Namespace="beEventsModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Budget">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CommitteeId" Type="int" Nullable="false" />
+          <Property Name="Amount" Type="real" Nullable="false" />
+          <Property Name="Year" Type="nchar" MaxLength="4" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
         <EntityType Name="Committee">
           <Key>
             <PropertyRef Name="Id" />
@@ -34,6 +44,17 @@
           <Property Name="Schedule" Type="datetime" Nullable="false" />
           <Property Name="CommitteeID" Type="int" Nullable="false" />
         </EntityType>
+        <EntityType Name="Expense">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Amount" Type="real" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="MemberId" Type="int" Nullable="false" />
+          <Property Name="EventId" Type="int" Nullable="false" />
+          <Property Name="DateTime" Type="datetime" Nullable="false" />
+        </EntityType>
         <EntityType Name="Member">
           <Key>
             <PropertyRef Name="Id" />
@@ -42,6 +63,18 @@
           <Property Name="EmployeeID" Type="int" Nullable="false" />
           <Property Name="CommitteeID" Type="int" Nullable="false" />
         </EntityType>
+        <Association Name="FK_Budget_ToCommittee">
+          <End Role="Committee" Type="Self.Committee" Multiplicity="1" />
+          <End Role="Budget" Type="Self.Budget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Committee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Budget">
+              <PropertyRef Name="CommitteeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Evemt_ToCommittee">
           <End Role="Committee" Type="Self.Committee" Multiplicity="1" />
           <End Role="Event" Type="Self.Event" Multiplicity="*" />
@@ -51,6 +84,30 @@
             </Principal>
             <Dependent Role="Event">
               <PropertyRef Name="CommitteeID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expense_ToEvent">
+          <End Role="Event" Type="Self.Event" Multiplicity="1" />
+          <End Role="Expense" Type="Self.Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expense_ToMember">
+          <End Role="Member" Type="Self.Member" Multiplicity="1" />
+          <End Role="Expense" Type="Self.Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="MemberId" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -79,13 +136,27 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="beEventsModelStoreContainer">
+          <EntitySet Name="Budget" EntityType="Self.Budget" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Committee" EntityType="Self.Committee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Employee" EntityType="Self.Employee" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Event" EntityType="Self.Event" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Expense" EntityType="Self.Expense" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Member" EntityType="Self.Member" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Budget_ToCommittee" Association="Self.FK_Budget_ToCommittee">
+            <End Role="Committee" EntitySet="Committee" />
+            <End Role="Budget" EntitySet="Budget" />
+          </AssociationSet>
           <AssociationSet Name="FK_Evemt_ToCommittee" Association="Self.FK_Evemt_ToCommittee">
             <End Role="Committee" EntitySet="Committee" />
             <End Role="Event" EntitySet="Event" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expense_ToEvent" Association="Self.FK_Expense_ToEvent">
+            <End Role="Event" EntitySet="Event" />
+            <End Role="Expense" EntitySet="Expense" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expense_ToMember" Association="Self.FK_Expense_ToMember">
+            <End Role="Member" EntitySet="Member" />
+            <End Role="Expense" EntitySet="Expense" />
           </AssociationSet>
           <AssociationSet Name="FK_Member_ToCommittee" Association="Self.FK_Member_ToCommittee">
             <End Role="Committee" EntitySet="Committee" />
@@ -109,6 +180,7 @@
           <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Events" Relationship="Self.FK_Evemt_ToCommittee" FromRole="Committee" ToRole="Event" />
           <NavigationProperty Name="Members" Relationship="Self.FK_Member_ToCommittee" FromRole="Committee" ToRole="Member" />
+          <NavigationProperty Name="Budgets" Relationship="beEventsModel.FK_Budget_ToCommittee" FromRole="Committee" ToRole="Budget" />
         </EntityType>
         <EntityType Name="Employee">
           <Key>
@@ -132,6 +204,7 @@
           <Property Name="Schedule" Type="DateTime" Nullable="false" Precision="3" />
           <Property Name="CommitteeID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Committee" Relationship="Self.FK_Evemt_ToCommittee" FromRole="Event" ToRole="Committee" />
+          <NavigationProperty Name="Expenses" Relationship="beEventsModel.FK_Expense_ToEvent" FromRole="Event" ToRole="Expense" />
         </EntityType>
         <EntityType Name="Member">
           <Key>
@@ -142,6 +215,7 @@
           <Property Name="CommitteeID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Committee" Relationship="Self.FK_Member_ToCommittee" FromRole="Member" ToRole="Committee" />
           <NavigationProperty Name="Employee" Relationship="Self.FK_Member_ToEmployee" FromRole="Member" ToRole="Employee" />
+          <NavigationProperty Name="Expenses" Relationship="beEventsModel.FK_Expense_ToMember" FromRole="Member" ToRole="Expense" />
         </EntityType>
         <Association Name="FK_Evemt_ToCommittee">
           <End Role="Committee" Type="Self.Committee" Multiplicity="1" />
@@ -196,7 +270,81 @@
             <End Role="Employee" EntitySet="Employees" />
             <End Role="Member" EntitySet="Members" />
           </AssociationSet>
+          <EntitySet Name="Budgets" EntityType="beEventsModel.Budget" />
+          <EntitySet Name="Expenses" EntityType="beEventsModel.Expense" />
+          <AssociationSet Name="FK_Budget_ToCommittee" Association="beEventsModel.FK_Budget_ToCommittee">
+            <End Role="Committee" EntitySet="Committees" />
+            <End Role="Budget" EntitySet="Budgets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expense_ToEvent" Association="beEventsModel.FK_Expense_ToEvent">
+            <End Role="Event" EntitySet="Events" />
+            <End Role="Expense" EntitySet="Expenses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Expense_ToMember" Association="beEventsModel.FK_Expense_ToMember">
+            <End Role="Member" EntitySet="Members" />
+            <End Role="Expense" EntitySet="Expenses" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="Budget">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CommitteeId" Type="Int32" Nullable="false" />
+          <Property Name="Amount" Type="Single" Nullable="false" />
+          <Property Name="Year" Type="String" Nullable="false" MaxLength="4" FixedLength="true" Unicode="true" />
+          <Property Name="Description" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Committee" Relationship="beEventsModel.FK_Budget_ToCommittee" FromRole="Budget" ToRole="Committee" />
+        </EntityType>
+        <EntityType Name="Expense">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Amount" Type="Single" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="MemberId" Type="Int32" Nullable="false" />
+          <Property Name="EventId" Type="Int32" Nullable="false" />
+          <Property Name="DateTime" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="Event" Relationship="beEventsModel.FK_Expense_ToEvent" FromRole="Expense" ToRole="Event" />
+          <NavigationProperty Name="Member" Relationship="beEventsModel.FK_Expense_ToMember" FromRole="Expense" ToRole="Member" />
+        </EntityType>
+        <Association Name="FK_Budget_ToCommittee">
+          <End Type="beEventsModel.Committee" Role="Committee" Multiplicity="1" />
+          <End Type="beEventsModel.Budget" Role="Budget" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Committee">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Budget">
+              <PropertyRef Name="CommitteeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expense_ToEvent">
+          <End Type="beEventsModel.Event" Role="Event" Multiplicity="1" />
+          <End Type="beEventsModel.Expense" Role="Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Event">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="EventId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Expense_ToMember">
+          <End Type="beEventsModel.Member" Role="Member" Multiplicity="1" />
+          <End Type="beEventsModel.Expense" Role="Expense" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Member">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Expense">
+              <PropertyRef Name="MemberId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -241,6 +389,29 @@
                 <ScalarProperty Name="Id" ColumnName="Id" />
                 <ScalarProperty Name="EmployeeID" ColumnName="EmployeeID" />
                 <ScalarProperty Name="CommitteeID" ColumnName="CommitteeID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Budgets">
+            <EntityTypeMapping TypeName="beEventsModel.Budget">
+              <MappingFragment StoreEntitySet="Budget">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Year" ColumnName="Year" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="CommitteeId" ColumnName="CommitteeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Expenses">
+            <EntityTypeMapping TypeName="beEventsModel.Expense">
+              <MappingFragment StoreEntitySet="Expense">
+                <ScalarProperty Name="DateTime" ColumnName="DateTime" />
+                <ScalarProperty Name="EventId" ColumnName="EventId" />
+                <ScalarProperty Name="MemberId" ColumnName="MemberId" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Amount" ColumnName="Amount" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

@@ -19,6 +19,7 @@ namespace BentleyModels
         {
             this.Events = new HashSet<Event>();
             this.Members = new HashSet<Member>();
+            this.Budgets = new HashSet<Budget>();
         }
     
         public int Id { get; set; }
@@ -29,5 +30,7 @@ namespace BentleyModels
         public virtual ICollection<Event> Events { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Member> Members { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Budget> Budgets { get; set; }
     }
 }
