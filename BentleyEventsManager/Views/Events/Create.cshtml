@@ -34,7 +34,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Schedule, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Schedule, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.TextBoxFor(model => model.Schedule, new { @id = "datepicker", @class = "form-control", placeholder = "Event Date" })
                 @Html.ValidationMessageFor(model => model.Schedule, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -60,5 +60,15 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jqueryui")
+
+    <script type="text/javascript">
+        alert("asdasdas");
+        $(function () { // will trigger when the document is ready
+            $('#datepicker').datetimepicker({
+                dateFormat: 'dd-mm-yy', timeFormat: 'hh:mm'
+            }); //Initialise any date pickers
+        });
+    </script>
 }
