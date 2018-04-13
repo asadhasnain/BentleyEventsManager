@@ -6,7 +6,9 @@
 /.vs/*
 /BentleyEventsManager/bin/*
 /BentleyEventsManager/obj/*
+/BentleyEventsManager/BentleyEventsManager.csproj.user
 
 
 /BentleyModels/bin/*
 /BentleyModels/obj/*
+/BentleyModels/BentleyModels.csproj.user
