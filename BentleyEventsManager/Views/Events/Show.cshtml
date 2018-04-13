@@ -12,7 +12,6 @@
 	<title>Events</title>
 	@Styles.Render("~/Content/css")
 	@Scripts.Render("~/bundles/modernizr")
-	<link href="~/Content/Site.css" rel="stylesheet" />
 
 </head>
 <body class="parallaxbody">
@@ -24,7 +23,7 @@
 	</div>
 	<div class="container">
 		<div class="row">
-			@foreach (var item in Model)
+			@foreach(var item in Model)
 				{
 				<div class="col-lg-4 col-md-4 col-sm-6 eventColumn text-center">
 					@Html.Partial("EventDetail", item)

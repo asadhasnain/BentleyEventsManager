@@ -17,17 +17,7 @@ namespace BentleyEventsManager.Controllers
 
 		public ActionResult Show()
 			{
-			List<BentleyModels.Event> events = new List<BentleyModels.Event> ();
-			for (int i = 0; i < 3; i++)
-				{
-				events.Add (new BentleyModels.Event { Title = "MovieNight", Description = "Movie wali Night", Schedule = DateTime.Now });
-				events.Add (new BentleyModels.Event { Title = "Theater", Description = "Entertainment Entertainment Entertainment", Schedule = DateTime.Now });
-				events.Add (new BentleyModels.Event { Title = "Pani ka Bulbula", Description = "ho ho ho", Schedule = DateTime.Now });
-				events.Add (new BentleyModels.Event { Title = "MovieNight", Description = "Movie wali Night", Schedule = DateTime.Now });
-				events.Add (new BentleyModels.Event { Title = "Theater", Description = "Entertainment Entertainment Entertainment", Schedule = DateTime.Now });
-				events.Add (new BentleyModels.Event { Title = "Pani ka Bulbula", Description = "ho ho ho", Schedule = DateTime.Now });
-				}
-			//IEnumerable<BentleyModels.Event> events = new BentleyModels.BentleyModels ().Events.Where(m => m.Schedule > DateTime.Now).OrderBy(m=>m.Schedule);
+			IEnumerable<BentleyModels.Event> events = db.Events.Where(m => m.Schedule > DateTime.Now).OrderBy(m=>m.Schedule);
 			return View (events);
 			}
 

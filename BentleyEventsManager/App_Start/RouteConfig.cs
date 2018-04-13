@@ -18,8 +18,8 @@ namespace BentleyEventsManager
                 url: "{controller}/{action}/{id}",
                 defaults: new
                     {
-                    controller = "Home",
-                    action = "Index",
+                    controller = "Events",
+                    action = "Show",
                     id = UrlParameter.Optional
                     }
             );

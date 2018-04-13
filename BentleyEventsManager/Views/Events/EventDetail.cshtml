@@ -34,9 +34,12 @@
 		@Html.DisplayFor(model => model.Committee.Title)
 	</dd>
 
-	<dd style="position:center">
-		@Html.ActionLink("Details", "Details", "Events",new { id =Model.Id})
-	</dd>
+	@*<dd style="position:center">
+		@Html.ActionLink("Details", "Details", new
+		{
+		id = Model.Id
+		})
+	</dd>*@
 
 </dl>
 
