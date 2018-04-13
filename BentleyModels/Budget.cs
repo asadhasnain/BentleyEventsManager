@@ -12,21 +12,14 @@ namespace BentleyModels
     using System;
     using System.Collections.Generic;
     
-    public partial class Member
+    public partial class Budget
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Member()
-        {
-            this.Expenses = new HashSet<Expense>();
-        }
-    
         public int Id { get; set; }
-        public int EmployeeID { get; set; }
-        public int CommitteeID { get; set; }
+        public int CommitteeId { get; set; }
+        public float Amount { get; set; }
+        public string Year { get; set; }
+        public string Description { get; set; }
     
         public virtual Committee Committee { get; set; }
-        public virtual Employee Employee { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Expense> Expenses { get; set; }
     }
 }

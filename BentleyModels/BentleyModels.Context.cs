@@ -29,5 +29,7 @@ namespace BentleyModels
         public virtual DbSet<Employee> Employees { get; set; }
         public virtual DbSet<Event> Events { get; set; }
         public virtual DbSet<Member> Members { get; set; }
+        public virtual DbSet<Budget> Budgets { get; set; }
+        public virtual DbSet<Expense> Expenses { get; set; }
     }
 }
